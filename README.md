@@ -8,8 +8,7 @@ Before I dive into creating a classifier, I typically performa exploratory analy
 However, I broke from my normal process as curiosity got the best of me. I was interested in learning about what the typical outcomes are for sheltered animals (check out the graph below).
 
 ![Image of Outcomes]
-<<<<<<< HEAD
-(https://github.com/etav/animal_shelter/blob/master/outcomes.pdf)
+(https://github.com/etav/animal_shelter/blob/master/img/outcomes.png)
 
 Luckily, as we see above, many animals are either adopted, transferred or in the case of dogs frequently returned to their owners.  
 
@@ -21,6 +20,6 @@ ID | The animal's unique ID
 Name | The animal's name, if known (many are not).
 DateTime | The date and time the animal entered the shelter (ranges from 1/1/14 - 9/9/15).
 OutcomeType |
-=======
-(https://github.com/etav/animal_shelter/blob/master/img/outcomes.png)
->>>>>>> b5ffe4be98a126b075734de355ad9ab285eb8e7d
+
+
+
