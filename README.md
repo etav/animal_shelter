@@ -16,10 +16,13 @@ Luckily, as we see above, many animals are either adopted, transferred or in the
 
 Variable Name | Description
 ------------ | -------------
-ID | The animal's unique ID
+ID | The animal's unique ID.
 Name | The animal's name, if known (many are not).
 DateTime | The date and time the animal entered the shelter (ranges from 1/1/14 - 9/9/15).
-OutcomeType |
-
-
-
+OutcomeType | A five factor variable detailing the outcome for the animal (ie: adopted,transferred, died).
+OutcomeSubtype | 17 factor variable containing Further details related to the outcome of the animal, such as whether or not they were aggressive.
+AnimalType | Whether the animal is a cat or dog.
+SexuponOutcome | The sex of the animal at the time the outcome was recorded.
+AgeuponOutcome| The age of the animal when the outcome was recorded.
+Breed | The breed of the animal (contains mixed breed).
+Color | A Description of the coloring on the animal.
