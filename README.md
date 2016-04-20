@@ -8,4 +8,4 @@ Before I dive into creating a classifier, I typically performa exploratory analy
 However, I broke from my normal process as curiosity got the best of me. I was interested in learning about what the typical outcomes are for sheltered animals (check out the graph below). 
 
 ![Image of Outcomes]
-https://github.com/etav/animal_shelter/blob/master/outcomes.pdf
+(https://github.com/etav/animal_shelter/blob/master/outcomes.pdf)
