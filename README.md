@@ -26,3 +26,28 @@ SexuponOutcome | The sex of the animal at the time the outcome was recorded.
 AgeuponOutcome| The age of the animal when the outcome was recorded.
 Breed | The breed of the animal (contains mixed breed).
 Color | A Description of the coloring on the animal.
+
+###Transforming Variables
+
+The first thing I did was transform the date variable by separating time and date so that I can analyze them independently, I'd like to be able to compare time of day and any seasonality effects on adoption. I then moved on to address missing name values (there were a few mis-codings which caused errors). After that I moved onto transforming the "AgeuponOutcome" variable so that the reported age of animals would all be in the same units, I chose days. This took some chaining of ifelse statements, check it out here:
+
+```R
+#Animal Age
+split<-str_split_fixed(train$AgeuponOutcome," ", 2) # split value and unit of time
+split[,2]<-gsub("s","",split[,2]) #remove tailing "s"
+
+#create a vector to multiply
+multiplier <- ifelse(split[,2] == 'day', 1,
+                     ifelse(split[,2] == 'week', 7,
+                            ifelse(split[,2] == 'month', 30,  
+                                   ifelse(split[,2] == 'year', 365, NA))))
+
+train$days_old <- as.numeric(split[,1]) * multiplier #apply the multiplier
+train$days_old[1:5] #compare, looks good
+train$AgeuponOutcome[1:5]
+```
+
+After this transformation, we're able to create a visualization which tells us the outcome of each animal type as a function of its age (in days).
+
+![Image of Age&Outcomes]
+(https://github.com/etav/animal_shelter/blob/master/img/age&outcomes.png)
