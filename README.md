@@ -53,6 +53,6 @@ After this transformation, we're able to create a visualization which tells us t
 ![Image of Age&Outcomes]
 (https://github.com/etav/animal_shelter/blob/master/img/age&outcome.png)
 
-Interestingly the likelihood of being adopted for cats varies with age whereas for dogs there appears to be a slight negative correlation between a dog's age and the probability it will be adopted.
+Interestingly the likelihood of being adopted for cats varies with age whereas for dogs there appears to be a slight negative correlation between a it's age and the probability it will be adopted.
 
 For dogs, it seems older animals tend to have a higher likelihood of being returned to their owner (I assume this is has to do with the proliferation of chips for animals)
