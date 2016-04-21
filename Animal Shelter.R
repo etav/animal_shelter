@@ -102,8 +102,12 @@ ggplot(age, aes(x= days_old, y = num_animals, fill=OutcomeType)) +
 
 #Puppy/Kitten Variable
 hist(train$days_old)
+<<<<<<< HEAD
 train$young<-ifelse(train$days_old>=365,0,1) 
 train
+=======
+train$young<-ifelse(train$days_old>=365,1,0) 
+>>>>>>> 82735e8cc6583211fbbb96ba9f1a6f6da855c7e3
 str(train)
 #Animal Breed
 (unique(train$Breed)) #1379 unique breeds, let's narrow that down a bit
@@ -149,6 +153,7 @@ train[factorVars] <- lapply(train[factorVars], function(x) as.factor(x))
 #split training & testing
 train <- train[1:26729, ]
 test  <- train[26730:nrow(full), ]
+<<<<<<< HEAD
 str(train)
 rf1<-randomForest(OutcomeType~AnimalType+days_old+color_simple+young+SexuponOutcome+Named,
                   data=train,importance=T, ntree=500, na.action=na.fail)
@@ -157,3 +162,17 @@ rf1
 plot(rf1, ylim=c(0,1))
 legend('topright', colnames(rf1$err.rate), col=1:6, fill=1:6)
 
+=======
+
+str(train)
+rf1<-randomForest(OutcomeType~AnimalType+days_old+color_simple+young+SexuponOutcome,
+                  data=train,importance=T, ntree=50, na.action=na.fail)
+rf1
+
+animal <- predict(rf1, test)
+# Confusion matrix
+conf.matrix2 <- table(test$admit, predict(rf1,type="class")) #tune model using eval data
+rownames(conf.matrix2) <- paste("Actual", rownames(conf.matrix2), sep = ":")
+colnames(conf.matrix2) <- paste("Pred", colnames(conf.matrix2), sep = ":")
+print(conf.matrix2)
+>>>>>>> 82735e8cc6583211fbbb96ba9f1a6f6da855c7e3
