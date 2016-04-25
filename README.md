@@ -14,6 +14,11 @@ Luckily, as we see above, many animals are either adopted, transferred or in the
 
 ###The Variables
 
+```R
+[1] "ID"             "Name"           "DateTime"       "OutcomeType"    "OutcomeSubtype" "AnimalType"    
+ [7] "SexuponOutcome" "AgeuponOutcome" "Breed"          "Color"    
+```
+
 Variable Name | Description
 ------------ | -------------
 ID | The animal's unique ID.
@@ -29,7 +34,7 @@ Color | A Description of the coloring on the animal.
 
 ###Transforming Variables
 
-The first thing I did was transform the date variable by separating time and date so that I can analyze them independently, I'd like to be able to compare time of day and any seasonality effects on adoption. I then moved on to address missing name values (there were a few mis-codings which caused errors). After that I moved onto transforming the "AgeuponOutcome" variable so that the reported age of animals would all be in the same units, I chose days. This took some chaining of ifelse statements, check it out here:
+The first thing I did was transform the date variable by separating time and date so that I can analyze them independently, I'd like to be able to compare time of day and any seasonality effects on adoption. I then moved on to address missing name values (there were a few mis-codings which caused errors). After that I moved onto transforming the "AgeuponOutcome" variable so that the reported age of animals would all be in the same units, I chose days. This took some chaining of ifelse statements:
 
 ####Animal's Age
 ```R
