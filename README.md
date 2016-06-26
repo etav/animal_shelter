@@ -89,7 +89,7 @@ Here's a detailed breakdown of our Random Forest:
 ```R
 #Calling Random Forest
 Call:
- randomForest(formula = OutcomeType ~ AnimalType + SexuponOutcome +      Named + days_old + young + color_simple, data = train, importance = T,      ntree = 500, na.action = na.fail)
+ randomForest(formula = OutcomeType ~ AnimalType+SexuponOutcome+Named+days_old+young+color_simple, data = train, importance = T,      ntree = 500, na.action = na.fail)
                Type of random forest: classification
                      Number of trees: 500
 No. of variables tried at each split: 2
@@ -107,8 +107,8 @@ Transfer            2641    0         83             954     5744   0.3903630
 ###Determining Variable Importance
 Finally, we'll rank our predictor variables based on their mean reduction in Gini error.
 
-![Image of RF_Error]
-(https://github.com/etav/animal_shelter/blob/master/img/var_importnce.png)
+![Image of var_importance]
+(https://github.com/etav/animal_shelter/blob/master/img/var_importance.png)
 
 
 As we see in the graphic above, the animal's sex and age were most useful to reduce the mean Gini Error. Interestingly, animal type (ie: cat or dog) and the physical features of the animal such as the color mattered less.
