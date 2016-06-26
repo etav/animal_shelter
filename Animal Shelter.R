@@ -1,15 +1,14 @@
 #-----ANIMAL SHELTER DATA-----
 #load libraries
-library(ggplot2) #data viz
-library(dplyr) #data manipulation
-library(randomForest) #for classification
-library(stringr)#for dates
+
+library(ggplot2)
+library(dplyr)
+library(randomForest)
+library(stringr)
 library(ggthemes)
 library(lubridate)
-
-
 #------GET & EXPLORE THE DATA------
-dir= ("/Users/etavares/Documents/Data Science/Kaggle/Animal_Shelter/")
+dir= ("/Users/ernestt/Documents/Code/animal_shelter/")
 setwd(dir)
 
 train = read.csv("train.csv", stringsAsFactors = F)
@@ -102,12 +101,10 @@ ggplot(age, aes(x= days_old, y = num_animals, fill=OutcomeType)) +
 
 #Puppy/Kitten Variable
 hist(train$days_old)
-<<<<<<< HEAD
 train$young<-ifelse(train$days_old>=365,0,1) 
 train
-=======
+
 train$young<-ifelse(train$days_old>=365,1,0) 
->>>>>>> 82735e8cc6583211fbbb96ba9f1a6f6da855c7e3
 str(train)
 #Animal Breed
 (unique(train$Breed)) #1379 unique breeds, let's narrow that down a bit
@@ -115,6 +112,7 @@ str(train)
 breed1<-str_split_fixed(train$Breed,"/",2) # split on "\" and keep first group
 breed.simple<- gsub(" Mix","",breed1[,1]) # split on "Mix" and keep first breed
 unique(breed.simple) # down to 220 breeds but still too many for our algorithm (MAX factor levels for RF is 53
+train$breed.simple<-breed.simple
 
 #Animal Color
 color<-str_split_fixed(train$Color," ",2) # split on " " and keep first group
@@ -125,7 +123,7 @@ train$color_simple<-as.factor(color) #treat color as factor
 
 #Flagging Aggressive Breeds
 breed <- train[1:26729, ] %>%
-  group_by(AnimalType,breed_simple, OutcomeType, OutcomeSubtype) %>%
+  group_by(AnimalType,breed.simple, OutcomeType, OutcomeSubtype) %>%
   summarise(num_animals = n())
 
 ggplot(breed, aes(x= OutcomeType, y = num_animals, fill=OutcomeSubtype)) +
@@ -147,32 +145,43 @@ str(train)
 
 #Turn variables into factors
 factorVars <- c('OutcomeType','OutcomeSubtype','AnimalType',
-                'SexuponOutcome','AgeuponOutcome','breed_simple','color_simple','young')
+                'SexuponOutcome','AgeuponOutcome','breed.simple','color_simple','young')
+
 train[factorVars] <- lapply(train[factorVars], function(x) as.factor(x))
 
 #split training & testing
+test  <- train[26730:nrow(train), ]
 train <- train[1:26729, ]
-test  <- train[26730:nrow(full), ]
-<<<<<<< HEAD
-str(train)
-rf1<-randomForest(OutcomeType~AnimalType+days_old+color_simple+young+SexuponOutcome+Named,
-                  data=train,importance=T, ntree=500, na.action=na.fail)
+
+#Random Forest
+rf1 <- randomForest(OutcomeType~AnimalType+SexuponOutcome+Named+days_old+young+color_simple,
+                    data=train,importance=T, ntree=500, na.action=na.fail)
 rf1
+
 #reduction in error with forest size
 plot(rf1, ylim=c(0,1))
 legend('topright', colnames(rf1$err.rate), col=1:6, fill=1:6)
 
-=======
+#Variable Importance
+importance    <- importance(rf1)
+var.Importance <- data.frame(Variables = row.names(importance), 
+                            Importance = round(importance[ ,'MeanDecreaseGini'],2))
+#Ranking
+rank <- var.Importance %>%
+  mutate(Rank = paste0('#',dense_rank(desc(Importance))))
 
-str(train)
-rf1<-randomForest(OutcomeType~AnimalType+days_old+color_simple+young+SexuponOutcome,
-                  data=train,importance=T, ntree=50, na.action=na.fail)
-rf1
+ggplot(rank, aes(x = reorder(Variables, Importance), 
+                           y = Importance)) +
+  geom_bar(stat='identity', colour = 'grey', fill="pink") +
+  geom_text(aes(x = Variables, y = 0.5, label = Rank),
+            hjust=0, vjust=0.55, size = 4, colour = 'white',
+            fontface = 'bold') +
+  labs(x = 'Variables', title = 'Variable Importance', y = "Mean Decrease in Gini") +
+  coord_flip() + 
+  theme_bw()
 
-animal <- predict(rf1, test)
-# Confusion matrix
-conf.matrix2 <- table(test$admit, predict(rf1,type="class")) #tune model using eval data
-rownames(conf.matrix2) <- paste("Actual", rownames(conf.matrix2), sep = ":")
-colnames(conf.matrix2) <- paste("Pred", colnames(conf.matrix2), sep = ":")
-print(conf.matrix2)
->>>>>>> 82735e8cc6583211fbbb96ba9f1a6f6da855c7e3
+#Submission
+
+prediction <- predict(rf1, test, type = 'vote') #predict
+solution <- data.frame('ID' = test$ID, prediction) #save solution 
+write.csv(solution, 'rf_solution.csv', row.names = F) #write to csv
