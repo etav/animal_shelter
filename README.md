@@ -2,7 +2,7 @@
 ### The Dataset  
 Some R code for a kaggle competition I entered. The goal was to create a classifier to predict the outcome of a sheltered animal using features such the animal's gender, age and breed. The training dataset contains 26,729 observations, 9 predictor variables and was given to us by the Austin Animal Shelter.
 
-###Exploratory Analysis
+### Exploratory Analysis
 Before I dive into creating a classifier, I typically perform an exploratory analysis moving from observing one univariate statistics to bivariate statistics and finally model building.
 
 However, I broke from my normal process as curiosity got the best of me. I was interested in learning about what the typical outcomes are for sheltered animals (check out the graph below).
@@ -60,13 +60,13 @@ Interestingly the likelihood of being adopted for cats varies with age whereas f
 
 For dogs, it seems older animals tend to have a higher likelihood of being returned to their owner (I assume this is has to do with the proliferation of chips for animals)
 
-####Animal's Gender
+#### Animal's Gender
 Moving on I decided to compare the differences in outcomes based on the animal's gender. It's clear that adopters favor animals (both cats and dogs) that have previously been neutered. It's interesting to note that a large proportion of cats which were not neutered are transferred to another animal shelter, where (my guess is) they are then neutered.
 
 ![Image of Sex&Outcomes](https://github.com/etav/animal_shelter/blob/master/img/outcome_by_sex.png)
 
 
-###Applying Random Forest
+### Applying Random Forest
 After transforming our variables, performing univariate analysis and determining the validity of our sample, it's finally time to move to model building. I will create a random forest using the RandomForest package, using OutcomeType as our predictor variable (remember there are five levels, which complicates things a bit).
 
 ```R
