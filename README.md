@@ -11,7 +11,7 @@ However, I broke from my normal process as curiosity got the best of me. I was i
 
 Luckily, as we see above, many animals are either adopted, transferred or in the case of dogs frequently returned to their owners.  
 
-###The Variables
+### The Variables
 
 ```R
 [1] "ID"             "Name"           "DateTime"       "OutcomeType"    "OutcomeSubtype" "AnimalType"    
@@ -31,11 +31,11 @@ AgeuponOutcome| The age of the animal when the outcome was recorded.
 Breed | The breed of the animal (contains mixed breed).
 Color | A Description of the coloring on the animal.
 
-###Transforming Variables
+### Transforming Variables
 
 The first thing I did was transform the date variable by separating time and date so that I can analyze them independently, I'd like to be able to compare time of day and any seasonality effects on adoption. I then moved on to address missing name values (there were a few mis-codings which caused errors). After that I moved onto transforming the "AgeuponOutcome" variable so that the reported age of animals would all be in the same units, I chose days. This took some chaining of ifelse statements:
 
-####Animal's Age
+#### Animal's Age
 ```R
 #Animal Age
 split<-str_split_fixed(train$AgeuponOutcome," ", 2) # split value and unit of time
@@ -100,7 +100,7 @@ Return_to_owner     1998    0          9            2393      386   0.5000000
 Transfer            2641    0         83             954     5744   0.3903630
 ```
 
-###Determining Variable Importance
+### Determining Variable Importance
 Finally, we'll rank our predictor variables based on their mean reduction in Gini error.
 
 ![Image of var_importance](https://github.com/etav/animal_shelter/blob/master/img/var_importance.png)
