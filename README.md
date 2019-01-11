@@ -7,8 +7,7 @@ Before I dive into creating a classifier, I typically perform an exploratory ana
 
 However, I broke from my normal process as curiosity got the best of me. I was interested in learning about what the typical outcomes are for sheltered animals (check out the graph below).
 
-``![Image of Outcomes]
-(https://github.com/etav/animal_shelter/blob/master/img/outcomes_by_animal.png)``
+![Image of Outcomes](https://github.com/etav/animal_shelter/blob/master/img/outcomes_by_animal.png)
 
 Luckily, as we see above, many animals are either adopted, transferred or in the case of dogs frequently returned to their owners.  
 
